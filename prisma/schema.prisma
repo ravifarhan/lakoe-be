@@ -1,0 +1,299 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id         String       @id @unique @default(cuid())
+  name       String?
+  email      String?      @unique
+  phone      String?
+  password   String?
+  role_id    Roles?       @relation(fields: [rolesId], references: [id])
+  profile_id Profiles?
+  rolesId    String?
+  Carts      Carts[]
+  Cart_Items Cart_Items[]
+  Invoices   Invoices[]
+  Payments   Payments[]
+
+  @@map("users")
+}
+
+model Roles {
+  id    String  @id @unique @default(cuid())
+  name  String?
+  Users Users[]
+
+  @@map("roles")
+}
+
+model Profiles {
+  id        String      @id @unique @default(cuid())
+  locations String?
+  user_id   Users?      @relation(fields: [usersId], references: [id])
+  usersId   String?     @unique
+  Locations Locations[]
+
+  @@map("profiles")
+}
+
+model Products {
+  id            String       @id @unique @default(cuid())
+  name          String?
+  description   String?
+  attachments   String?
+  is_active     Boolean?
+  variants      String?
+  size          Int?
+  minimum_order Int?
+  store_id      Stores?      @relation(fields: [storesId], references: [id])
+  storesId      String?
+  Categories    Categories[]
+  Variants      Variants[]
+
+  @@map("products")
+}
+
+model Categories {
+  id         String    @id @unique @default(cuid())
+  name       String?
+  product_id Products? @relation(fields: [productsId], references: [id])
+  productsId String?
+
+  @@map("categories")
+}
+
+model Variants {
+  id              String            @id @unique @default(cuid())
+  name            String?
+  is_active       Boolean?
+  product_id      Products?         @relation(fields: [productsId], references: [id])
+  productsId      String?
+  Variant_Options Variant_Options[]
+
+  @@map("variants")
+}
+
+model Variant_Options {
+  id                    String                  @id @unique @default(cuid())
+  name                  String?
+  variant_id            Variants?               @relation(fields: [variantsId], references: [id])
+  variantsId            String?
+  Variant_Option_Values Variant_Option_Values[]
+
+  @@map("variant_options")
+}
+
+model Variant_Option_Values {
+  id                String           @id @unique @default(cuid())
+  variant_option_id Variant_Options? @relation(fields: [variant_OptionsId], references: [id])
+  sku               String?
+  weight            Int?
+  stock             Int?
+  price             Int?
+  is_active         Boolean?
+  variant_OptionsId String?
+  Cart_Items        Cart_Items[]
+
+  @@map("variant_option_values")
+}
+
+model Carts {
+  id         String       @id @unique @default(cuid())
+  price      Int?
+  discount   Int?
+  user_id    Users?       @relation(fields: [usersId], references: [id])
+  store_id   Stores?      @relation(fields: [storesId], references: [id])
+  usersId    String?
+  storesId   String?
+  Cart_Items Cart_Items[]
+  Invoices   Invoices[]
+
+  @@map("carts")
+}
+
+model Cart_Items {
+  id                      String                 @id @unique @default(cuid())
+  qty                     Int?
+  price                   Int?
+  cart_id                 Carts?                 @relation(fields: [cartsId], references: [id])
+  user_id                 Users?                 @relation(fields: [usersId], references: [id])
+  store_id                Stores?                @relation(fields: [storesId], references: [id])
+  variant_option_value_id Variant_Option_Values? @relation(fields: [variant_Option_ValuesId], references: [id])
+  cartsId                 String?
+  usersId                 String?
+  storesId                String?
+  variant_Option_ValuesId String?
+
+  @@map("cart_items")
+}
+
+model Invoices {
+  id                   String                 @id @unique @default(cuid())
+  price                Int?
+  service_charge       Int?
+  status               String?
+  receiver_longitude   String?
+  receiver_latitude    String?
+  receiver_district    String?
+  receiver_phone       String?
+  receiver_address     String?
+  receiver_name        String?
+  invoice_number       String?
+  cart_id              Carts?                 @relation(fields: [cartsId], references: [id])
+  payment_id           Payments?              @relation(fields: [paymentsId], references: [id])
+  courier_id           Couriers?
+  user_id              Users?                 @relation(fields: [usersId], references: [id])
+  cartsId              String?
+  paymentsId           String?                @unique
+  usersId              String?
+  Confirmation_Payment Confirmation_Payment[]
+  Invoice_Histories    Invoice_Histories[]
+
+  @@map("invoices")
+}
+
+model Payments {
+  id                   String    @id @unique @default(cuid())
+  bank                 String?
+  amount               Int?
+  status               String?
+  invoice_id           Invoices?
+  user_id              Users?    @relation(fields: [usersId], references: [id])
+  moota_transaction_id String?
+  usersId              String?
+
+  @@map("payments")
+}
+
+model Couriers {
+  id                   String    @id @unique @default(cuid())
+  courier_code         String?
+  courier_service_name String?
+  courier_service_code String?
+  price                Int?
+  invoice_id           Invoices? @relation(fields: [invoicesId], references: [id])
+  order_id             String?
+  invoicesId           String?   @unique
+
+  @@map("couriers")
+}
+
+model Confirmation_Payment {
+  id         String    @id @unique @default(cuid())
+  amount     Int?
+  bank       String?
+  invoice_id Invoices? @relation(fields: [invoicesId], references: [id])
+  invoicesId String?
+
+  @@map("confirmation_payment")
+}
+
+model Invoice_Histories {
+  id         String    @id @unique @default(cuid())
+  status     String?
+  invoice_id Invoices? @relation(fields: [invoicesId], references: [id])
+  created_at DateTime?
+  invoicesId String?
+
+  @@map("invoice_histories")
+}
+
+model Stores {
+  id                  String                @id @unique @default(cuid())
+  name                String?
+  slogan              String?
+  description         String?
+  domain              String?
+  logo_attachment     String?
+  banner_attachment   String?
+  Products            Products[]
+  Carts               Carts[]
+  Cart_Items          Cart_Items[]
+  Bank_Account        Bank_Account[]
+  Store_on_Decoration Store_on_Decoration[]
+  Operation_Hours     Operation_Hours[]
+  Message_Templates   Message_Templates[]
+  Locations           Locations[]
+
+  @@map("stores")
+}
+
+model Bank_Account {
+  id         String  @id @unique @default(cuid())
+  bank       String?
+  acc_number Int?
+  acc_name   String?
+  store_id   Stores? @relation(fields: [storesId], references: [id])
+  storesId   String?
+
+  @@map("bank_account")
+}
+
+model Store_on_Decoration {
+  id            String      @id @unique @default(cuid())
+  decoration_id Decoration? @relation(fields: [decorationId], references: [id])
+  store_id      Stores?     @relation(fields: [storesId], references: [id])
+  decorationId  String?
+  storesId      String?
+
+  @@map("store_on_decoration")
+}
+
+model Decoration {
+  id                  String                @id @unique @default(cuid())
+  type                String?
+  Store_on_Decoration Store_on_Decoration[]
+
+  @@map("decorations")
+}
+
+model Operation_Hours {
+  id       String    @id @unique @default(cuid())
+  day      String?
+  open_at  DateTime?
+  close_at DateTime?
+  is_off   Boolean?
+  store_id Stores?   @relation(fields: [storesId], references: [id])
+  storesId String?
+
+  @@map("operation_hours")
+}
+
+model Message_Templates {
+  id       String  @id @unique @default(cuid())
+  name     String?
+  content  String?
+  store_id Stores? @relation(fields: [storesId], references: [id])
+  storesId String?
+
+  @@map("message_templates")
+}
+
+model Locations {
+  id               String    @id @unique @default(cuid())
+  name             String?
+  address          String?
+  postal_id        String?
+  city_district    String?
+  latitude         String?
+  longitude        String?
+  store_id         Stores?   @relation(fields: [storesId], references: [id])
+  profile_id       Profiles? @relation(fields: [profilesId], references: [id])
+  is_main_location Boolean?
+  storesId         String?
+  profilesId       String?
+
+  @@map("locations")
+}

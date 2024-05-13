@@ -6,6 +6,7 @@ import { InvoicesModule } from './invoices/invoices.module';
 import { PaymentsModule } from './payments/payments.module';
 import { CouriersModule } from './couriers/couriers.module';
 import { ConfirmationPaymentModule } from './confirmation_payment/confirmation_payment.module';
+import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ConfirmationPaymentModule } from './confirmation_payment/confirmation_p
     PaymentsModule,
     CouriersModule,
     ConfirmationPaymentModule,
+    InvoiceHistoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

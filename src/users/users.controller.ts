@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,13 +22,20 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Request() req) {
+    console.log(req.user, `ini user login`);
+
     return this.usersService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
+  }
+
+  @Get(':name')
+  findOneByName(@Param('name') name: string) {
+    return this.usersService.findOneByName(name);
   }
 
   @Patch(':id')

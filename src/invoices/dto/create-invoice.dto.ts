@@ -9,4 +9,7 @@ export class CreateInvoiceDto {
   receiver_address: string;
   receiver_name: string;
   invoice_number: string;
+  cartsId: string;
+  paymentsId: string;
+  usersId: string;
 }

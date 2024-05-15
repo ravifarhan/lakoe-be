@@ -12,6 +12,7 @@ import { ConfirmationPaymentModule } from './confirmation_payment/confirmation_p
 import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.module';
 import { StoresModule } from './stores/stores.module';
 import { ProductsModule } from './products/products.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ProductsModule } from './products/products.module';
     InvoiceHistoriesModule,
     StoresModule,
     ProductsModule,
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

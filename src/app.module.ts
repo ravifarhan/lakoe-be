@@ -14,6 +14,7 @@ import { StoresModule } from './stores/stores.module';
 import { ProductsModule } from './products/products.module';
 import { RolesModule } from './roles/roles.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ProfilesModule } from './profiles/profiles.module';
     ProductsModule,
     RolesModule,
     ProfilesModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

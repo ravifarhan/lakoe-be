@@ -13,6 +13,7 @@ import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.mo
 import { StoresModule } from './stores/stores.module';
 import { ProductsModule } from './products/products.module';
 import { RolesModule } from './roles/roles.module';
+import { ProfilesModule } from './profiles/profiles.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { RolesModule } from './roles/roles.module';
     StoresModule,
     ProductsModule,
     RolesModule,
+    ProfilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

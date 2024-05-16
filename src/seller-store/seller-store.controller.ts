@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
 } from '@nestjs/common';
 import { SellerStoreService } from './seller-store.service';
 import { CreateSellerStoreDto } from './dto/create-seller-store.dto';
@@ -17,12 +18,14 @@ export class SellerStoreController {
 
   @Post()
   create(@Body() createSellerStoreDto: CreateSellerStoreDto) {
-    console.log(`body : `, createSellerStoreDto);
     return this.sellerStoreService.create(createSellerStoreDto);
   }
 
   @Get()
-  findAll() {
+  findAll(@Request() req) {
+    const user_id = req.user;
+    console.log(user_id), `ini user id`;
+
     return this.sellerStoreService.findAll();
   }
 

@@ -28,7 +28,10 @@ export class UsersService {
       },
     });
 
-    return users;
+    return {
+      message: 'create users sucessfully!',
+      data: users,
+    };
   }
 
   async findAll() {

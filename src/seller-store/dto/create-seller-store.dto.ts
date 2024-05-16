@@ -5,4 +5,5 @@ export class CreateSellerStoreDto {
   domain: string;
   logo_attachment: string;
   banner_attachment: string;
+  user_id: string;
 }

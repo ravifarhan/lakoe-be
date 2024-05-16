@@ -19,7 +19,12 @@ export class AuthService {
       throw new BadRequestException('Email or password is not correct');
     }
 
-    const payload = { sub: user.id, username: user.name };
+    const payload = {
+      sub: user.id,
+      username: user.name,
+      email: user.email,
+      phone: user.phone,
+    };
 
     return {
       access_token: this.jwtService.sign(payload),

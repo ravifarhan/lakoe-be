@@ -279,13 +279,14 @@ model Message_Templates {
   storesId String?
 
   @@map("message_templates")
+  
 }
 
 model Locations {
   id               String    @id @unique @default(cuid())
   name             String?
   address          String?
-  postal_id        String?
+  postal_code      String?
   city_district    String?
   latitude         String?
   longitude        String?

@@ -10,6 +10,8 @@ import { PaymentsModule } from './payments/payments.module';
 import { CouriersModule } from './couriers/couriers.module';
 import { ConfirmationPaymentModule } from './confirmation_payment/confirmation_payment.module';
 import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.module';
+import { LocationsModule } from './locations/locations.module';
+import { MessageTemplatesModule } from './message_templates/message_templates.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.mo
     CouriersModule,
     ConfirmationPaymentModule,
     InvoiceHistoriesModule,
+    LocationsModule,
+    MessageTemplatesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,6 +10,11 @@ import { PaymentsModule } from './payments/payments.module';
 import { CouriersModule } from './couriers/couriers.module';
 import { ConfirmationPaymentModule } from './confirmation_payment/confirmation_payment.module';
 import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.module';
+import { StoresModule } from './stores/stores.module';
+import { ProductsModule } from './products/products.module';
+import { RolesModule } from './roles/roles.module';
+import { ProfilesModule } from './profiles/profiles.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -22,6 +27,11 @@ import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.mo
     CouriersModule,
     ConfirmationPaymentModule,
     InvoiceHistoriesModule,
+    StoresModule,
+    ProductsModule,
+    RolesModule,
+    ProfilesModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,6 +12,11 @@ import { ConfirmationPaymentModule } from './confirmation_payment/confirmation_p
 import { InvoiceHistoriesModule } from './invoice_histories/invoice_histories.module';
 import { LocationsModule } from './locations/locations.module';
 import { MessageTemplatesModule } from './message_templates/message_templates.module';
+import { StoresModule } from './stores/stores.module';
+import { ProductsModule } from './products/products.module';
+import { RolesModule } from './roles/roles.module';
+import { ProfilesModule } from './profiles/profiles.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -26,6 +31,11 @@ import { MessageTemplatesModule } from './message_templates/message_templates.mo
     InvoiceHistoriesModule,
     LocationsModule,
     MessageTemplatesModule,
+    StoresModule,
+    ProductsModule,
+    RolesModule,
+    ProfilesModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

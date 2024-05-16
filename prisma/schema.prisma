@@ -17,7 +17,7 @@ model Users {
   id         String       @id @unique @default(cuid())
   name       String?      @unique
   email      String?      @unique
-  phone      String?
+  phone      String?      @unique
   password   String?
   role_id    Roles?       @relation(fields: [rolesId], references: [id])
   profile_id Profiles?

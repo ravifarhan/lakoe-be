@@ -6,7 +6,7 @@ export const ValidateProducts = Joi.object<CreateProductDto>({
   description: Joi.string().required(),
   attachments: Joi.string().required(),
   is_active: Joi.boolean().required(),
-  variants: Joi.string().required(),
-  size: Joi.number().required(),
+  variants: Joi.string().empty(),
+  size: Joi.number().empty(),
   minimum_order: Joi.number().required(),
 });

@@ -20,6 +20,8 @@ export class ProductsController {
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
   create(@Body() createProductDto: CreateProductDto) {
+    createProductDto.is_active = true;
+    createProductDto.url = `lakoe.store/${createProductDto.url}`;
     return this.productsService.create(createProductDto);
   }
 

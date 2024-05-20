@@ -51,12 +51,20 @@ model Profiles {
 model Products {
   id            String       @id @unique @default(cuid())
   name          String?
+  url           String?      @unique
   description   String?
   attachments   String?
+  price         Int?
+  minimum_order Int?
+  stock         Int?
+  sku           String?
+  weight        Int?
+  long          Int?
+  wide          Int?
+  height        Int?
   is_active     Boolean?
   variants      String?
   size          Int?
-  minimum_order Int?
   store_id      Stores?      @relation(fields: [storesId], references: [id])
   storesId      String?
   Categories    Categories[]

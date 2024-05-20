@@ -12,8 +12,9 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto) {
     const { error, value } = ValidateProducts.validate(createProductDto);
     if (error) {
-      throw new Error(STATUS_CODE.INVALID);
+      console.log(error, 'ini error');
     }
+
     const product = await this.prisma.products.create({
       data: { ...value },
     });

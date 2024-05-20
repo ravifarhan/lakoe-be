@@ -4,8 +4,8 @@ export class CreateProductDto {
   'description': string;
   'attachments': string;
   'is_active': boolean;
+  'minimum_order': number;
   'variants': string;
   'size': number;
-  'minimum_order': number;
   // "storesId" : string
 }
